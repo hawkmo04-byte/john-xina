@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ระบบเบิกจ่ายโบนัสพิเศษ (年终奖金)</title>
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      /* รูปพื้นหลัง แนวดาร์กๆ ทองๆ ออนไลน์อันเดิม */
+      background-image: url('https://images.unsplash.com/photo-1618044733300-9472054094ee?q=80&w=2071&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 8vh; 
+    }
+
+    .content-box {
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 30px 40px;
+      border-radius: 15px;
+      text-align: center;
+      border: 2px solid #FFD700; 
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+      z-index: 10;
+      max-width: 500px; 
+    }
+
+    #company-logo {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 50%; 
+      border: 4px solid #FFD700; 
+      margin-bottom: 20px;
+      background-color: #ffffff; 
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); 
+    }
+
+    h1 {
+      color: white;
+      margin: 0 0 10px 0;
+      font-size: 26px;
+    }
+
+    .chinese-text {
+      color: #FFD700; 
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .subtitle {
+      color: #eee;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    #trickBtn {
+      padding: 15px 40px;
+      font-size: 22px;
+      font-weight: bold;
+      background-color: #e74c3c;
+      color: white;
+      border: 2px solid #fff;
+      border-radius: 8px;
+      position: absolute; 
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(231, 76, 60, 0.5);
+      transition: all 0.15s ease-out; 
+      z-index: 20;
+    }
+
+    #trickBtn:hover {
+      background-color: #c0392b;
+    }
+
+    /* 🔴 สไตล์สำหรับข้อความภาษาจีนด้านล่างสุด 🔴 */
+    .footer-text {
+      position: absolute;
+      bottom: 20px; /* ห่างจากขอบล่าง 20px */
+      width: 100%;
+      text-align: center;
+      color: white; /* ตัวหนังสือสีขาวตามรีเควส */
+      font-size: 14px;
+      opacity: 0.6; /* ทำให้ดูจางๆ เนียนๆ เหมือนข้อตกลงที่ไม่มีใครอ่าน */
+      z-index: 5;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="content-box" id="mainBox">
+    <img id="company-logo" src="พี่จอน.jpg" alt="Logo">
+    
+    <h1>โบนัสพิเศษจาก john xina 💰</h1>
+    <span class="chinese-text">恭喜发财 • 超级大奖</span> 
+    <p class="subtitle">กดยืนยันด้านล่างเพื่อโอนเข้าบัญชีทันที<br>(点击下方按钮领取奖金)</p>
+  </div>
+
+  <button id="trickBtn" onmouseover="moveButton()">กดรับเงิน (领取)</button>
+
+  <div class="footer-text">
+    糟糕，我被骗 操你妈/操你媽 
+  </div>
+
+  <script>
+    const btn = document.getElementById('trickBtn');
+    const box = document.getElementById('mainBox');
+
+    window.onload = function() {
+        centerButton();
+    };
+
+    function centerButton() {
+        const boxRect = box.getBoundingClientRect();
+        const centerX = (window.innerWidth - btn.offsetWidth) / 2;
+        const centerY = boxRect.bottom + 40; 
+        
+        btn.style.left = centerX + 'px';
+        btn.style.top = centerY + 'px';
+    }
+
+    function moveButton() {
+      // หักลบพื้นที่ด้านล่างเพิ่มขึ้นนิดหน่อย เพื่อไม่ให้ปุ่มหนีไปทับข้อความ footer
+      const maxX = window.innerWidth - btn.offsetWidth - 20;
+      const maxY = window.innerHeight - btn.offsetHeight - 50; 
+
+      let randomX = Math.floor(Math.random() * maxX) + 10;
+      let randomY = Math.floor(Math.random() * maxY) + 10;
+
+      btn.style.left = randomX + 'px';
+      btn.style.top = randomY + 'px';
+    }
+
+    window.addEventListener('resize', centerButton);
+  </script>
+</body>
+</html>
