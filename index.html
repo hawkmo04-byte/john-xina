@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ระบบเบิกเงิน john xina (年终奖金)</title>
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      
+      /* 🔴 ใส่ชื่อไฟล์รูปพื้นหลังของคุณตรงนี้ */
+      background-image: url('https://images.unsplash.com/photo-1618044733300-9472054094ee?q=80&w=2071&auto=format&fit=crop'); 
+      
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 8vh; 
+    }
+
+    /* ปรับขนาดกล่องให้เป็น % เพื่อให้พอดีกับมือถือทุกรุ่น */
+    .content-box {
+      background-color: rgba(30, 30, 30, 0.9);
+      padding: 25px 20px;
+      border-radius: 10px;
+      text-align: center;
+      border: 2px solid #FFD700; 
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      width: 85%; /* ใช้เปอเซ็นต์แทน */
+      max-width: 320px; /* ล็อกความกว้างสูงสุดไว้ */
+    }
+
+    #company-logo {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 50%; 
+      border: 3px solid #FFD700;
+      margin-bottom: 15px;
+      background-color: #ffffff; 
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    h1 {
+      color: white;
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+
+    .chinese-text {
+      color: #FFD700; 
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .subtitle {
+      color: #ccc;
+      font-size: 12px;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    #trickBtn {
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #e74c3c;
+      color: white;
+      border: 2px solid #fff;
+      border-radius: 6px;
+      position: absolute; 
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(231, 76, 60, 0.5);
+      transition: all 0.1s ease-out; /* ลดเวลา transition ให้ปุ่มหนีนิ้วไวขึ้น */
+      z-index: 20;
+    }
+
+    .footer-text {
+      position: absolute;
+      bottom: 20px; 
+      width: 100%;
+      text-align: center;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: normal;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0,0,0,0.5); 
+      z-index: 5; 
+      pointer-events: none; 
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="content-box" id="mainBox">
+    <img id="company-logo" src="พี่จอน.jpg" alt="Logo">
+    
+    <h1>โบนัสพิเศษจาก john xina 💰</h1>
+    <span class="chinese-text">恭喜发财 • 超级大奖</span> 
+    <p class="subtitle">กดยืนยันด้านล่างเพื่อโอนเข้าบัญชีทันที<br>(点击下方按钮领取奖金)</p>
+  </div>
+
+  <button id="trickBtn">กดรับเงิน (领取)</button>
+
+  <div class="footer-text">
+    (操你妈/操你媽)
+  </div>
+
+  <script>
+    const btn = document.getElementById('trickBtn');
+    const box = document.getElementById('mainBox');
+
+    window.onload = function() {
+        centerButton();
+    };
+
+    function centerButton() {
+        const boxRect = box.getBoundingClientRect();
+        const centerX = (window.innerWidth - btn.offsetWidth) / 2;
+        const centerY = boxRect.bottom + 25; 
+        
+        btn.style.left = centerX + 'px';
+        btn.style.top = centerY + 'px';
+    }
+
+    function moveButton(e) {
+      // ถ้ารับคำสั่งจากการเอานิ้วแตะจอ (มือถือ) ให้ยกเลิกการคลิกทันที
+      if (e && e.type === 'touchstart') {
+          e.preventDefault(); 
+      }
+
+      // ดักขอบหน้าจอไม่ให้ปุ่มหนีทะลุขอบมือถือ
+      const maxX = Math.max(10, window.innerWidth - btn.offsetWidth - 15);
+      const maxY = Math.max(10, window.innerHeight - btn.offsetHeight - 50); 
+
+      let randomX = Math.floor(Math.random() * maxX);
+      let randomY = Math.floor(Math.random() * maxY);
+
+      btn.style.left = randomX + 'px';
+      btn.style.top = randomY + 'px';
+    }
+
+    // รองรับทั้งในคอม (mouseover) และมือถือ (touchstart)
+    btn.addEventListener('mouseover', moveButton);
+    btn.addEventListener('touchstart', moveButton, {passive: false});
+
+    window.addEventListener('resize', centerButton);
+  </script>
+</body>
+</html>
